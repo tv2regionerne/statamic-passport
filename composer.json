@@ -1,0 +1,31 @@
+{
+    "name": "tv2regionerne/statamic-passport",
+    "scripts": {
+        "test": "./vendor/bin/pest"
+    },
+    "autoload": {
+        "psr-4": {
+            "Tv2regionerne\\StatamicPassport\\": "src"
+        }
+    },
+    "extra": {
+        "statamic": {
+            "name": "Statamic Passport",
+            "description": ""
+        },
+        "laravel": {
+            "providers": [
+                "Tv2regionerne\\StatamicPassport\\ServiceProvider"
+            ]
+        }
+    },
+    "require": {
+        "statamic/cms": "^4.0"
+    },
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true,
+            "pixelfear/composer-dist-plugin": true
+        }
+    }
+}

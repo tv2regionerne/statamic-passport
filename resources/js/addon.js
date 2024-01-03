@@ -1,0 +1,3 @@
+Statamic.booting(() => {
+
+})

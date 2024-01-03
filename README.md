@@ -1,1 +1,1 @@
-# statamic-passport
+# Statamic Passport Addon

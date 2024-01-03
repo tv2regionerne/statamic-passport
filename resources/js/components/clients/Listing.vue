@@ -2,7 +2,7 @@
     
     <div>
         <div class="flex items-end justify-between mb-4">
-            <h2>Clients</h2>
+            <h2>{{ __('OAuth Clients') }}</h2>
             <button class="btn btn-sm btn-primary px-3" @click="createClient">Create Client</button>
         </div>
         <div class="card p-0">
@@ -15,8 +15,8 @@
             <table class="data-table" v-if="!initializing && clients.length">
                 <thead>
                     <tr>
-                        <th>Name</th>
                         <th>ID</th>
+                        <th>Name</th>
                         <th>Secret</th>
                         <th></th>
                     </tr>
@@ -24,15 +24,15 @@
                 <tbody>
                     <tr v-for="client in clients" :key="client.id">
                         <td>
-                            {{ client.name }}
+                            {{ client.id }}
                         </td>
                         <td>
-                            {{ client.id }}
+                            {{ client.name }}
                         </td>
                         <td>
                             {{ client.secret }}
                         </td>
-                        <td>
+                        <td class="flex justify-end">
                             <dropdown-list>
                                 <dropdown-item :text="__('Edit')" @click="editClient(client)" />
                                 <dropdown-item :text="__('Delete')" class="warning" @click="deleteClient(client)" />
@@ -42,7 +42,7 @@
                 </tbody>
             </table>
         </div>
-        <Form
+        <ClientForm
             v-if="showClient"
             :initial-values="clientValues"
             @saved="closeClient"
@@ -53,12 +53,12 @@
 </template>
 
 <script>
-import Form from './Form.vue';
+import ClientForm from './Form.vue';
 
 export default {
 
     components: {
-        Form,
+        ClientForm,
     },
 
     data() {
@@ -79,7 +79,7 @@ export default {
 
         loadClients() {
             this.loading = true;
-            this.$axios.get('/passport/clients')
+            this.$axios.get(passport_url('clients'))
                 .then(response => {
                     this.clients = response.data;
                     this.loading = false;
@@ -91,7 +91,7 @@ export default {
         },
 
         deleteClient(client) {
-            this.$axios.delete(`/passport/clients/${client.id}`)
+            this.$axios.delete(passport_url(`clients/${client.id}`))
                 .then(response => {
                     this.loadClients();
                 })

@@ -3,7 +3,9 @@
 namespace Tv2regionerne\StatamicPassport;
 
 use Statamic\Facades\CP\Nav;
+use Statamic\Facades\Permission;
 use Statamic\Providers\AddonServiceProvider;
+use Statamic\Statamic;
 
 class ServiceProvider extends AddonServiceProvider
 {
@@ -19,11 +21,23 @@ class ServiceProvider extends AddonServiceProvider
 
     public function bootAddon()
     {
+        Statamic::provideToScript([
+            'passport' => [
+                'url' => url(config('passport.path')),
+            ],
+        ]);
+
+        Permission::extend(function () {
+            Permission::register('manage passport')
+                ->label(__('Manage Passport'));
+        });
+
         Nav::extend(function ($nav) {
-            $nav->create('Passport')
+            $nav->create(__('Passport'))
                 ->section('Users')
                 ->route('passport.index')
-                ->icon('user');
+                ->icon('user')
+                ->can('manage passport');
         });
     }
 }

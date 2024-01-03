@@ -2,7 +2,8 @@
     
     <div>
         <div class="flex items-end justify-between mb-4">
-            <h2>Tokens</h2>
+            <h2>{{ __('Personal Access Tokens') }}</h2>
+            <button class="btn btn-sm btn-primary px-3" @click="createToken">Create Token</button>
         </div>
         <div class="card p-0">
             <div v-if="initializing" class="flex items-center justify-center text-center py-16">
@@ -15,7 +16,6 @@
                 <thead>
                     <tr>
                         <th>Name</th>
-                        <th>ID</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -24,10 +24,7 @@
                         <td>
                             {{ token.name }}
                         </td>
-                        <td>
-                            {{ token.id }}
-                        </td>
-                        <td>
+                        <td class="flex justify-end">
                             <dropdown-list>
                                 <dropdown-item :text="__('Delete')" class="warning" @click="deleteToken(token)" />
                             </dropdown-list>
@@ -36,19 +33,39 @@
                 </tbody>
             </table>
         </div>
+        <TokenForm
+            v-if="showToken"
+            @saved="viewNewToken"
+            @closed="closeToken"
+            />
+        <TokenView
+            v-if="showNewToken"
+            :token="newToken"
+            @closed="closeNewToken"
+            />
     </div>
 
 </template>
 
 <script>
+import TokenForm from './Form.vue';
+import TokenView from './View.vue';
 
 export default {
+
+    components: {
+        TokenForm,
+        TokenView,
+    },
 
     data() {
         return {
             initializing: true,
             loading: true,
             tokens: [],
+            showToken: false,
+            showNewToken: false,
+            newToken: null,
         }
     },
     
@@ -60,7 +77,7 @@ export default {
 
         loadTokens() {
             this.loading = true;
-            this.$axios.get('/passport/tokens')
+            this.$axios.get(passport_url('personal-access-tokens'))
                 .then(response => {
                     this.tokens = response.data;
                     this.loading = false;
@@ -72,13 +89,34 @@ export default {
         },
 
         deleteToken(token) {
-            this.$axios.delete(`/passport/tokens/${token.id}`)
+            this.$axios.delete(passport_url(`personal-access-tokens/${token.id}`))
                 .then(response => {
                     this.loadTokens();
                 })
                 .catch(e => {
                     this.$toast.error(e.response ? e.response.data.message : __('Something went wrong'), { duration: null });
                 })
+        },
+
+        createToken() {
+            this.showToken = true;
+        },
+
+        closeToken() {
+            this.showToken = false;
+            this.loadTokens();
+        },
+
+        viewNewToken(token) {
+            this.newToken = token;
+            this.showToken = false;
+            this.showNewToken = true;
+            this.loadTokens();
+        },
+
+        closeNewToken() {
+            this.showNewToken = false;
+            this.newToken = null;
         },
 
     }

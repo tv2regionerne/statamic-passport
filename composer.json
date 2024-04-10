@@ -21,7 +21,7 @@
     },
     "require": {
         "statamic/cms": "^4.0 || ^5.0",
-        "laravel/passport": "^8|^9|^10|^11"
+        "laravel/passport": "^8|^9|^10|^11|^12"
     },
     "config": {
         "allow-plugins": {

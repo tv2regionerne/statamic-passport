@@ -23,7 +23,7 @@ class ServiceProvider extends AddonServiceProvider
     {
         Statamic::provideToScript([
             'passport' => [
-                'url' => url(config('passport.path')),
+                'url' => (string) url(config('passport.path', 'oauth')),
             ],
         ]);
 

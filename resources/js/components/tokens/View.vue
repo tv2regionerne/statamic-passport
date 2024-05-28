@@ -6,7 +6,7 @@
                 {{ __('Token Created') }}
             </header>
             <div class="p-4">
-                <p class="text-sm">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fugit placeat perferendis debitis quaerat recusandae quisquam minus facilis est pariatur ullam. Cum debitis voluptates magnam, illum est illo repellendus asperiores veniam:</p>
+                <p class="text-sm">This is the personal access token for your remote application to use. Please copy this and keep it safe, as you will not be able to view it again here, for security reasons.</p>
                 <div class="input-text h-auto text-sm font-mono break-all mt-4">
                     {{ token.accessToken }}
                 </div>

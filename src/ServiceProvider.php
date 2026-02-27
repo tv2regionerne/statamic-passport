@@ -2,6 +2,7 @@
 
 namespace Tv2regionerne\StatamicPassport;
 
+use Laravel\Passport\Passport;
 use Statamic\Facades\CP\Nav;
 use Statamic\Facades\Permission;
 use Statamic\Providers\AddonServiceProvider;
@@ -10,7 +11,7 @@ use Statamic\Statamic;
 class ServiceProvider extends AddonServiceProvider
 {
     protected $routes = [
-        'cp' => __DIR__.'/../routes/cp.php',
+        'cp' => __DIR__ . '/../routes/cp.php',
     ];
 
     protected $vite = [
@@ -19,7 +20,16 @@ class ServiceProvider extends AddonServiceProvider
         ],
     ];
 
-    public function bootAddon()
+    public function register(): void
+    {
+        parent::register();
+
+        app()->booting(function () {
+            Passport::$registersJsonApiRoutes = true;
+        });
+    }
+
+    public function bootAddon(): void
     {
         Statamic::provideToScript([
             'passport' => [

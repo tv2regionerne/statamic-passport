@@ -7,7 +7,7 @@
 [![Supported Statamic version](https://img.shields.io/badge/Statamic-4.0%2B-FF269E)](https://github.com/statamic/cms/releases)
 <!-- /statamic:hide -->
 
-This addon adds A UI into Statamic to manage Laravel Passport Clients and personal tokens.
+This addon adds a UI into Statamic to manage Laravel Passport Clients and personal tokens.
 ![Skærmbillede 2024-01-08 kl  10 15 43](https://github.com/tv2regionerne/statamic-passport/assets/2431914/3229a8a9-f014-4400-ba39-7b8243868ad5)
 
 
@@ -24,7 +24,7 @@ composer require tv2regionerne/statamic-passport
 ```
 
 The addon will require Laravel Passport to be installed. If not already installed, the package will be added.  
-Please follow the instructions in the [Laravel documentation](https://laravel.com/docs/10.x/passport) for the passport installation.
+Please follow the instructions in the [Laravel documentation](https://laravel.com/docs/passport) for the passport installation.
 
 Be aware that Laravel Passport default routes will clash with Statamic OAuth authentication if enabled: ```STATAMIC_OAUTH_ENABLED=true```.
 Please change the Passport prefix if you are using OAuth Authentication. This is done in ```config/passport.php``` by changing the 'path' parameter to eg. passport instead of oauth.

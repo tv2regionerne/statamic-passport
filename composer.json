@@ -1,8 +1,6 @@
 {
+    "$schema": "https://getcomposer.org/schema.json",
     "name": "tv2regionerne/statamic-passport",
-    "scripts": {
-        "test": "./vendor/bin/pest"
-    },
     "autoload": {
         "psr-4": {
             "Tv2regionerne\\StatamicPassport\\": "src"
@@ -20,13 +18,19 @@
         }
     },
     "require": {
+        "php": "^8.3",
         "statamic/cms": "^4.0 || ^5.0",
-        "laravel/passport": "^8|^9|^10|^11|^12|^13"
+        "laravel/passport": "^13"
     },
     "config": {
         "allow-plugins": {
             "pestphp/pest-plugin": true,
-            "pixelfear/composer-dist-plugin": true
+            "pixelfear/composer-dist-plugin": true,
+            "php-http/discovery": true
         }
+    },
+    "require-dev": {
+        "laravel/pint": "^1.27",
+        "spatie/laravel-ray": "^1.43"
     }
 }

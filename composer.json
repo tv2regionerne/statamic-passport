@@ -1,8 +1,6 @@
 {
+    "$schema": "https://getcomposer.org/schema.json",
     "name": "tv2regionerne/statamic-passport",
-    "scripts": {
-        "test": "./vendor/bin/pest"
-    },
     "autoload": {
         "psr-4": {
             "Tv2regionerne\\StatamicPassport\\": "src"
@@ -26,7 +24,8 @@
     "config": {
         "allow-plugins": {
             "pestphp/pest-plugin": true,
-            "pixelfear/composer-dist-plugin": true
+            "pixelfear/composer-dist-plugin": true,
+            "php-http/discovery": true
         }
     }
 }
